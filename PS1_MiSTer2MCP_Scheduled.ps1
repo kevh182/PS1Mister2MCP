@@ -22,20 +22,16 @@ $logFile = "$($pwd)\$(Date)_PS1_MiSTer2MCP.log"
 # Path to PS1 CSV Database
 $csv = Import-Csv "$($pwd)\PS1_DB.csv"
 
-Write-Output "********************************************************************************"
-Write-Output "                    PS1 MiSTer Saves <--> MemCard Pro                           "
-Write-Output "********************************************************************************"
-Write-Output "                     Backup your data before use!                               "
-Write-Output "********************************************************************************"
+    # Set the path to the directory containing your files
 
-Do {
-        # Set the path to the directory containing your files
-        $misterPSXFolder = Read-Host "Enter the Path to MiSTer Saves (PSX Folder)"
-        $mcpFolder = Read-Host "Enter the Path to MemCard Pro PS1 folder (PS1 Folder)"
-        $mcpPath = "$($mcpFolder)\$($gameID)"
+    # Edit this path to point to your MiSTer saves
+    $misterPSXFolder = "\Path\to\mister\saves\"
+    # Edit this path to point to your MemCardPro PS1 Folder
+    $mcpFolder = "\path\to\MemCardPro\PS1\Folder"
+    $mcpPath = "$($mcpFolder)\$($gameID)"
 
-        $mcpBackup = "$($pwd)\Backup\MCP"
-        $misterBackup = "$($pwd)\Backup\MiSTer"
+    $mcpBackup = "$($pwd)\Backup\MCP"
+    $misterBackup = "$($pwd)\Backup\MiSTer"
 
         # MiSTer save files
         $misterSaves = Get-ChildItem -path $misterPSXFolder -file
@@ -132,14 +128,14 @@ Do {
 
                 if($mcpFileName -eq $mcFile.Name){
                                     
-                    cd($misterPSXFolder)
+                    cd($mcpGameIDFolder)
                     $sourceFile = "$($misterPSXFolder)\$($gameTitle).sav"
                     $destinationFile = $mcFile
 
                         if (!(test-path $destinationFile)) {
                                 
                             Write-Output "$(Timestamp) MemCardPro save created: '$($gameTitle).sav' --> '$($mcFile.Name)'" | Tee-Object $logFile -Append
-                            cd($misterPSXFolder); Copy-Item $sourceFile -Destination $destinationFile
+                            Copy-Item $sourceFile -Destination $destinationFile
                         }
                     }                
                 } 
@@ -165,10 +161,8 @@ Do {
                         if (!(test-path $destinationFile)) {
                                 
                             Write-Output "$(Timestamp) MiSTer save created: '$($mcFile.Name)' --> '$($gameTitle).sav'" | Tee-Object $logFile -Append
-                            cd($mcpGameIDFolder); Copy-Item $sourceFile -Destination $destinationFile
+                            Copy-Item $sourceFile -Destination $destinationFile
                     }
                 }                
             } 
         }
-
-  } While ($true)
