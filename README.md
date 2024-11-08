@@ -33,5 +33,3 @@ You can easily add a game that is not included in "PS1_DB.csv".  Add a new row w
  This script only creates one MemCardPro memory card channel - "XXXX-12345-1.mcd".  I do not have plans to add support for more than one MemCardPro memory card channel.
  
  When the script creates the MiSTer save, you may see multiple "revisions" of a game title.  For example, "Tomb Raider (USA) has 7 versions of the game that share the same GameID - SLUS-00152.  "SLUS-00152-1.mcd" will create the following: "Tomb Raider (USA).sav", "Tomb Raider (USA) (Rev 1).sav", "Tomb Raider (USA) (Rev 2).sav", "Tomb Raider (USA) (Rev 3).sav", "Tomb Raider (USA) (Rev 4).sav", "Tomb Raider (USA) (Rev 5).sav", and "Tomb Raider (USA) (Rev 6).sav" because they all share the same GameID.  This is expected behavior.
- 
- You may see "Demo" or "Beta" in the filenames because they had the same GameID as the final version.  The "PS1_DB.csv" could use some cleaning up to fix that.
